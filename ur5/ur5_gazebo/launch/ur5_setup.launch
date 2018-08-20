@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Export env variable so that gazebo finds our models -->
+  <env name="GAZEBO_MODEL_PATH"
+       value="$(find ur5_gazebo)/models:$(optenv GAZEBO_MODEL_PATH)" />
+  
+  <!-- Launch file parameters -->
+  <arg name="paused"     default="true"/>
+  <arg name="debug"      default="false"/>
+  <arg name="gui"        default="true"/>
+  <arg name="rate"       default="125" />
+  <arg name="world_name" default="$(find ur5_gazebo)/worlds/ur5_setup.world" />
+  <arg name="limited" default="true"/>
+  <arg name="sim" default="true" />
+
+  <!-- Start up simulated world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_name)"/>
+    <arg name="paused"     value="$(arg paused)"/>
+    <arg name="debug"      value="$(arg debug)"/>
+    <arg name="gui"        value="$(arg gui)"/>
+  </include>
+
+  <!-- Send robot urdf to param server -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find ur5_description)/urdf/ur5_joint_limited_robot.urdf.xacro'" />
+  <!-- Spawn robot in gazebo (and move it upwards):
+       better initial values should be -2.355 and 1.57 but the robot does
+       something strange when unpausing it
+  -->
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model"
+        args="-urdf -param robot_description -model robot -z 0.594"
+        output="screen"/>
+
+  <include file="$(find ur5_gazebo)/launch/ur5_controllers.launch" />
+
+<!--            ARUN KUMAR                     -->
+<!-- <include file="$(find ur5_gazebo)/launch/controller_utils.launch"/>
+ -->
+
+  <!-- <rosparam file="$(find ur5_gazebo)/controller/ur5gripper_controllers.yaml" command="load"/>
+  <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn trajectory_controller" respawn="false" output="screen"/> -->
+
+  <!-- Remap follow_joint_trajectory -->
+  <!-- <remap if="$(arg sim)" from="/follow_joint_trajectory" to="/trajectory_controller/follow_joint_trajectory"/> -->
+
+  <!-- Launch moveit -->
+  <!-- <include file="$(find ur5_moveit_config)/launch/move_group.launch">
+    <arg name="limited" default="$(arg limited)"/>
+    <arg name="debug" default="$(arg debug)"/>
+  </include> -->
+
+  <!--          ARUN KUMAR                     -->
+
+</launch>
