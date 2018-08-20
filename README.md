@@ -8,7 +8,7 @@ Simulation source code and examples for applying machine learning on Robotic Man
 * ur5_moveit_config : `sudo apt-get install ros-kinetic-ur5-moveit-config`
 * Python 2.7
 
-Note : If you are using any other ros-<distro> change the `kinetic` to your <distro>.
+Note : If you are using any other `ros-<distro>` change the `kinetic` to your `<distro>`.
 
 ## Install the package:
 * `git clone https://github.com/ioarun/manipulators-for-learning.git`
