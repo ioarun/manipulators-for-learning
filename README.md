@@ -12,7 +12,7 @@ Note : If you are using any other ros-<distro> change the `kinetic` to your <dis
 
 ## Install the package:
 * `git clone https://github.com/ioarun/manipulators-for-learning.git`
-* `mv manipulators-for-learning /your/catkin_ws/src`
+* `mv manipulators-for-learning/ur5 /your/catkin_ws/src`
 * `cd catkin_ws/`
 * `catkin_make`
 * `. /devel/setup.bash`
