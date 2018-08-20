@@ -1,6 +1,6 @@
 # manipulators-for-learning
 Simulation source code and examples for applying machine learning on Robotic Manipulators.
-
+(This repository uses ur5 package from https://github.com/utecrobotics/ur5).
 ## Dependencies:
 * Ubuntu 16.04
 * [http://wiki.ros.org/kinetic/Installation/Ubuntu](ros-kinetic)
